@@ -25,27 +25,6 @@ class Dice
     @e,@w,@down,@up = up,down,e,w
   end
 
-  def same_dice?(dice2)
-    4.times do
-      4.times do
-        return true if compare_pips dice2
-        turn_n
-      end
-      turn_e
-    end
-    turn_e
-    turn_n
-    turn_w
-    2.times do
-      4.times do
-        return true if compare_pips dice2
-        turn_n
-      end
-      2.times{turn_e}
-    end
-    false
-  end
-
   def search(num_up,num_n)
     search_up(num_up)
     search_forward(num_n)
@@ -77,20 +56,11 @@ class Dice
       end
       nil
     end
-
-    def compare_pips(dice2)
-      if up   == dice2.up &&
-         down == dice2.down &&
-         n    == dice2.n &&
-         s    == dice2.s &&
-         e    == dice2.e &&
-         w    == dice2.w
-         return true
-      end
-      false
-    end
 end
 
-dice1 = Dice.new(gets.split.map(&:to_i))
-dice2 = Dice.new(gets.split.map(&:to_i))
-puts dice1.same_dice?(dice2) ? :Yes : :No
+dice = Dice.new(gets.split.map(&:to_i))
+q=gets.to_i
+q.times do
+  num_up,num_n=gets.split.map(&:to_i)
+  puts dice.search(num_up,num_n).w
+end
